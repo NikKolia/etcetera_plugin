@@ -53,18 +53,18 @@
     margin-right: 0;
 }
 
-.movie-info h4 {
+.property-info h4 {
     margin-bottom: 10px;
     color: #fff;
 }
 
-.movie-info p {
+.property-info p {
     margin-bottom: 0;
     color: #fff;
     font-size: 13px;
 }
 
-.movie-info {
+.property-info {
     position: absolute;
     top: 0;
     left: 0;
@@ -79,11 +79,11 @@
     transition: all .3s;
 }
 
-.movie-info * {
+.property-info * {
     width: 100%;
     display: block;
 }
 
-#ajax_fitler_search_results li:hover .movie-info {
+#ajax_fitler_search_results li:hover .property-info {
     opacity: 1;
 }
