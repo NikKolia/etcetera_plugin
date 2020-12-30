@@ -274,9 +274,12 @@ function my_ajax_filter_search_callback()
         );
     }
 
+    $per_page = -1; //set the per page limit
+
     $args = array(
         'post_type' => 'property',
-        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'posts_per_page' => $per_page,
         'meta_query' => $meta_query,
         'tax_query' => $tax_query
     );
@@ -285,7 +288,8 @@ function my_ajax_filter_search_callback()
         $search = sanitize_text_field($_GET['search']);
         $search_query = new WP_Query(array(
             'post_type' => 'property',
-            'posts_per_page' => -1,
+            'post_status' => 'publish',
+            'posts_per_page' => $per_page,
             'meta_query' => $meta_query,
             'tax_query' => $tax_query,
             's' => $search
@@ -302,29 +306,29 @@ function my_ajax_filter_search_callback()
             $search_query->the_post();
 
             $cats = strip_tags(get_the_term_list($post->ID, 'area'));
-//            if (have_rows('grid_items')):
-//                while (have_rows('grid_items')) : the_row();
+            if (have_rows('grid_items')):
+                while (have_rows('grid_items')) : the_row();
 
-            $result[] = array(
-                "id" => get_the_ID(),
-                "title" => get_the_title(),
-                "content" => get_the_content(),
-                "permalink" => get_permalink(),
-                "district" => $cats,
-                "building_title" => get_field('building_title'),
-                "building_location" => get_field('building_location'),
-                "floors_number" => get_field('floors_number'),
-                "building_type" => get_field('building_type'),
-//                        "building_eco" => get_field('building_eco'),
-//                        "square" => get_sub_field('square'),
-//                        "rooms" => get_sub_field('rooms'),
-//                        "balcony" => get_sub_field('balcony'),
-//                        "bathroom" => get_sub_field('bathroom'),
-                "poster" => wp_get_attachment_url(get_post_thumbnail_id($post->ID), 'full')
-            );
+                $result[] = array(
+                    "id" => get_the_ID(),
+                    "title" => get_the_title(),
+                    "content" => get_the_content(),
+                    "permalink" => get_permalink(),
+                    "district" => $cats,
+                    "building_title" => get_field('building_title'),
+                    "building_location" => get_field('building_location'),
+                    "floors_number" => get_field('floors_number'),
+                    "building_type" => get_field('building_type'),
+                    "building_eco" => get_field('building_eco'),
+                    "square" => get_sub_field('square'),
+                    "rooms" => get_sub_field('rooms'),
+                    "balcony" => get_sub_field('balcony'),
+                    "bathroom" => get_sub_field('bathroom'),
+                    "poster" => wp_get_attachment_url(get_post_thumbnail_id($post->ID), 'full')
+                );
 
-//                endwhile;
-//            endif;
+                endwhile;
+            endif;
 
         }
         wp_reset_query();
